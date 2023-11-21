@@ -25,6 +25,11 @@ nav {
   margin: 0 auto;
   display: flex;
   background-color: #f0eedc;
+  font-size: 20px;
+}
+
+textarea{
+    resize: none;
 }
 
 

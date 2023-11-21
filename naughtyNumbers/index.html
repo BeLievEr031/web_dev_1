@@ -13,8 +13,47 @@
     </nav>
 
     <div id="wrapper">
-      <div class="calculation-box w-50 h-100 border-2 border-r-5"></div>
+      <div class="calculation-box w-50 h-100 border-2 border-r-5">
+        <div class="inp-box">
+          Enter a number
+          <br />
+          <input type="text" id="input-data" />
+        </div>
+        <div class="option-1-box">
+          From base
+          <br />
+          <select name="option1" id="option1">
+            <option value="2">Binary</option>
+            <option value="8">octal</option>
+            <option value="10">decimal</option>
+            <option value="16">hexa-decimal</option>
+          </select>
+        </div>
+        <div class="option-2-box">
+          To Base
+          <br />
+          <select name="option1" id="option2">
+            <option value="2">Binary</option>
+            <option value="8">octal</option>
+            <option value="10">decimal</option>
+            <option value="16">hexa-decimal</option>
+          </select>
+        </div>
+        <div class="btn-box">
+          <button id="convert">convert</button>
+          <button>reset</button>
+          <button>swap</button>
+        </div>
+        <div class="result-box">
+          <textarea name="result" id="result" cols="25" rows="3"></textarea>
+        </div>
+        <div class="copy-box">
+          <button>Copy</button>
+        </div>
+      </div>
       <div class="visualise-box w-50 h-100 border-2 border-r-5"></div>
     </div>
+
+    <script src="./scripts/app.js"></script>
   </body>
 </html>
