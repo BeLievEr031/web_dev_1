@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/utility.css" />
   </head>
+
   <body>
     <nav>
       <h1 class="logo">NaughtyNumbers</h1>
     </nav>
 
-    <div id="wrapper">
+    <div id="wrapper" class="flex">
       <div class="calculation-box w-50 h-100 border-2 border-r-5">
         <div class="inp-box">
           Enter a number
@@ -20,7 +21,7 @@
           <input type="text" id="input-data" />
         </div>
         <div class="option-1-box">
-          From base
+          From Base
           <br />
           <select name="option1" id="option1">
             <option value="2">Binary</option>
@@ -40,20 +41,21 @@
           </select>
         </div>
         <div class="btn-box">
-          <button id="convert">convert</button>
-          <button>reset</button>
-          <button>swap</button>
+          <button id="convert" class="cursor-pointer">= Convert</button>
+          <button id="reset" class="cursor-pointer">x&nbsp; reset</button>
+          <button id="swap" class="cursor-pointer">&nbsp; swap &nbsp;</button>
         </div>
-        <div class="result-box">
+        <div class="result-box" id="result-bx">
           <textarea name="result" id="result" cols="25" rows="3"></textarea>
         </div>
         <div class="copy-box">
-          <button>Copy</button>
+          <button id="copy" class="cursor-pointer">Copy</button>
         </div>
       </div>
       <div class="visualise-box w-50 h-100 border-2 border-r-5"></div>
     </div>
 
     <script src="./scripts/app.js"></script>
+    <!-- <script src="./scripts/practice.js"></script> -->
   </body>
 </html>
