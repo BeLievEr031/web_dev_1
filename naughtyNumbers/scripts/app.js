@@ -19,7 +19,6 @@ convertBtn.addEventListener("click", function () {
     const number = inp.value;
     const fromBase = +option1.value;
     const toBase = +option2.value
-
     const decimalNum = parseInt(number, fromBase)
     result.value = decimalNum.toString(toBase);
 
