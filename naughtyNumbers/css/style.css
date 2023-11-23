@@ -43,6 +43,10 @@ textarea {
   gap: 15px;
 }
 
+.visualise-box{
+  padding: 10px;
+}
+
 input {
   height: 40px;
   width: 85%;
@@ -59,9 +63,8 @@ select {
   border-radius: 5px;
 }
 
-
 #convert {
-  background:rgb(23, 209, 23);
+  background: rgb(23, 209, 23);
   color: white;
   font-size: 20px;
   padding: 7px;
@@ -74,29 +77,40 @@ select {
   font-size: 20px;
   padding: 7px;
   border-radius: 4px;
-  
 }
 
 #swap {
-  background:grey;
+  background: grey;
   color: white;
   font-size: 20px;
   padding: 7px;
   border-radius: 4px;
 }
-#copy{
+#copy {
   background: rgba(43, 7, 7, 0.507);
   color: white;
   font-size: 20px;
   padding: 7px 20px;
   border-radius: 4px;
 }
-textarea{
+textarea {
   height: 100px;
   width: 85%;
   border: 1px solid grey;
   border-radius: 5px;
   font-size: 20px;
-  
 }
-/* Utility Class */ 
+
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+
+td{
+  padding: 5px 10px;
+  text-align: center;
+}
+
+/* Utility Class */
