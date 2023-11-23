@@ -22,20 +22,18 @@ convertBtn.addEventListener("click", function () {
 
     for (let i = 0; i < number.length; i++) {
         // A ka ASCCI CODE NIKALO = 49
-        // SELECTED OPTION KE VALUE MEI SE - 11 fromBase-11
-        // A ASCII CODE MEI +PLUS 49 + 5 = 54
+        // SELECTED OPTION KE VALUE MEI SE - 11 fromBase-11 to hamko difference milega
+        // A ASCII CODE MEI hum upper ka diffrence ko add karenge e.g 49 + 5 = 54 
         // HOW TO CONVERT ASCII VALUE INTO STRING
 
-        if (fromBase === 10) {
-            break;
-        }
+        inp.style.backgroundColor = "white";
 
         if (fromBase >= 10) {
 
             const asciiOfA = "A".charCodeAt(0) // ASCII CODE FOR A
             const difference = fromBase - 11;
-            // 16 - 11 === 5
             const newASCIICode = asciiOfA + difference;
+
             const newBaseStr = String.fromCharCode(newASCIICode)
 
             if (number.toUpperCase().charCodeAt(i) >= newBaseStr.charCodeAt(0)) {
@@ -56,7 +54,7 @@ convertBtn.addEventListener("click", function () {
     }
 
     const decimalNum = parseInt(number, fromBase)
-    result.value = decimalNum.toString(toBase);
+    result.value = decimalNum.toString(toBase).toUpperCase();
 });
 
 // console.log(obj.value);
