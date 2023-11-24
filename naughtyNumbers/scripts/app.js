@@ -1,14 +1,12 @@
+// 🔥🔥🔥🔥 --> denote your assignment
+
 const inp = document.querySelector("#input-data")
 const option1 = document.querySelector("#option1")
 const option2 = document.querySelector("#option2")
 const convertBtn = document.querySelector("#convert")
 const result = document.querySelector("#result")
-
+let tbody = document.querySelector("tbody")
 // console.log(inp, option1, option2, convertBtn);
-
-
-
-
 
 convertBtn.addEventListener("click", function () {
     // const visuliseArr = [
@@ -42,10 +40,10 @@ convertBtn.addEventListener("click", function () {
     const toBase = +option2.value
 
     for (let i = 0; i < number.length; i++) {
-        // A ka ASCCI CODE NIKALO = 49
-        // SELECTED OPTION KE VALUE MEI SE - 11 fromBase-11 to hamko difference milega
-        // A ASCII CODE MEI hum upper ka diffrence ko add karenge e.g 49 + 5 = 54 
-        // HOW TO CONVERT ASCII VALUE INTO STRING
+        // 🔥🔥🔥🔥 A ka ASCCI CODE NIKALO = 49
+        // 🔥🔥🔥🔥 SELECTED OPTION KE VALUE MEI SE - 11 fromBase-11 to hamko difference milega
+        // 🔥🔥🔥🔥 A ASCII CODE MEI hum upper ka diffrence ko add karenge e.g 49 + 5 = 54 
+        // 🔥🔥🔥🔥 HOW TO CONVERT ASCII VALUE INTO STRING
 
         inp.style.backgroundColor = "white";
 
@@ -78,18 +76,21 @@ convertBtn.addEventListener("click", function () {
     result.value = decimalNum.toString(toBase).toUpperCase();
 
 
-    visualizeTheNumber(number, toBase, visuliseArr)
+    // 🔥🔥🔥🔥Appropriate condition per alag alag construct function ko run karana he
+    // 🔥🔥🔥🔥 table ko hide and show karana he on the perfect condition
 
-    console.log(visuliseArr);
+
+    // visualizeTheNumber(number, toBase, visuliseArr)
+    // constructTable(visuliseArr)
+
+    visualiseTheSmallToBig(number, toBase, fromBase)
 });
-
-
 
 function visualizeTheNumber(number, toBase, visuliseArr) {
     //  / % 
-    let q = Math.floor(+number / toBase)
+    let q = -1;
     while (q !== 0) {
-        console.log(45);
+
         const vobj = {
             division: "",
             quotient: "",
@@ -109,8 +110,72 @@ function visualizeTheNumber(number, toBase, visuliseArr) {
         visuliseArr.push(vobj)
         number = q
 
-        console.log(number);
     }
 }
 
-// console.log(obj.value);
+function constructTable(visuliseArr) {
+
+    if (tbody === null) {
+        tbody = document.createElement("tbody")
+    } else {
+        tbody.remove()
+        tbody = document.createElement("tbody")
+    }
+
+    for (let i = 0; i < visuliseArr.length; i++) {
+        const tr = document.createElement("tr")
+
+        for (const data in visuliseArr[i]) {
+            const td = document.createElement("td")
+            td.innerText = visuliseArr[i][data]
+            tr.appendChild(td)
+        }
+
+        tbody.appendChild(tr)
+    }
+
+    document.querySelector("table").appendChild(tbody)
+}
+
+let div = null;
+
+function visualiseTheSmallToBig(number, toBase, fromBase) {
+
+    if (div === null) {
+        div = document.createElement("div")
+    } else {
+        div.remove()
+        div = document.createElement("div")
+    }
+
+    let htmlStr = `
+                    ( ${number} )
+                    <span>
+                    <sub>${fromBase}</sub> = 
+                    </span>
+                    `
+
+
+    number += "";
+
+    const ansStr = []
+    let pow = number.length
+    let calc = ``
+    for (let i = 0; i < number.length; i++) {
+        calc += `
+        ( ${number[i]} x  <span>
+        ${fromBase}
+        <sup>${--pow}</sup> 
+        </span>
+        )
+        ${i === number.length - 1 ? "" : "+"}
+        `
+    }
+
+    div.innerHTML = htmlStr + calc;
+    document.querySelector(".visualise-box").appendChild(div)
+
+
+}
+
+
