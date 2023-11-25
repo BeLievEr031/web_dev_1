@@ -101,11 +101,16 @@ textarea {
   font-size: 20px;
 }
 
-table {
+.table-cont {
   width: 100%;
+  display: none;
+}
+
+table {
   margin-bottom: 1rem;
   color: #212529;
   border-collapse: collapse;
+  width: 100%;
 }
 
 td {
