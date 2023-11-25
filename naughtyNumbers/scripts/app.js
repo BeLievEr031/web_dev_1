@@ -5,10 +5,16 @@ const option1 = document.querySelector("#option1")
 const option2 = document.querySelector("#option2")
 const convertBtn = document.querySelector("#convert")
 const result = document.querySelector("#result")
+const tableCont = document.querySelector(".table-cont")
+const swapBtn = document.querySelector("#swap")
+const resetBtn = document.querySelector("#reset")
+const copyBtn = document.querySelector("#copy")
 let tbody = document.querySelector("tbody")
+
 // console.log(inp, option1, option2, convertBtn);
 
 convertBtn.addEventListener("click", function () {
+
     // const visuliseArr = [
     //     {
     //         division: "18/2",
@@ -36,6 +42,9 @@ convertBtn.addEventListener("click", function () {
     // result.value = "latish"
 
     let number = inp.value;
+    if (number.length === 0) {
+        return;
+    }
     const fromBase = +option1.value;
     const toBase = +option2.value
 
@@ -66,10 +75,6 @@ convertBtn.addEventListener("click", function () {
             inp.style.backgroundColor = "red";
             return;
         }
-
-
-
-
     }
 
     const decimalNum = parseInt(number, fromBase)
@@ -80,10 +85,15 @@ convertBtn.addEventListener("click", function () {
     // 🔥🔥🔥🔥 table ko hide and show karana he on the perfect condition
 
 
-    // visualizeTheNumber(number, toBase, visuliseArr)
-    // constructTable(visuliseArr)
+    if (fromBase > toBase) {
+        visualizeTheNumber(number, toBase, visuliseArr)
+        constructTable(visuliseArr)
+        tableCont.classList.add("show")
+    } else {
+        tableCont.classList.remove("show")
+        visualiseTheSmallToBig(number, toBase, fromBase)
+    }
 
-    visualiseTheSmallToBig(number, toBase, fromBase)
 });
 
 function visualizeTheNumber(number, toBase, visuliseArr) {
@@ -177,5 +187,29 @@ function visualiseTheSmallToBig(number, toBase, fromBase) {
 
 
 }
+
+swapBtn.addEventListener("click", function () {
+    const tempValue = option1.value;
+    option1.value = option2.value;
+    option2.value = tempValue;
+})
+resetBtn.addEventListener("click", function () {
+    inp.value = "";
+    option1.value = "2"
+    option2.value = "2"
+})
+
+copyBtn.addEventListener("click", function () {
+    navigator.clipboard.writeText(result.value).then(() => {
+        this.innerText = "Copied"
+
+        setTimeout(() => {
+            this.innerText = "Copy"
+        }, 800)
+
+    }).catch((err) => {
+        console.log(err);
+    })
+})
 
 
