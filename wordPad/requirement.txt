@@ -1,0 +1,3 @@
+    selection.deleteFromDocument()
+    selection.conatainsNode(Node like span/div/b)
+    range.commonAncestorContainer
