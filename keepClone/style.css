@@ -8,6 +8,7 @@
 
 body {
   height: 100vh;
+  overflow: hidden;
 }
 
 nav {
@@ -26,6 +27,7 @@ nav img {
 
 .container {
   height: calc(100vh - 48px);
+  position: relative;
 }
 
 .menu {
@@ -60,4 +62,32 @@ nav img {
   border: none;
   font-size: 17px;
   background-color: inherit;
+}
+
+aside{
+  width: 40vh;
+  height: 100%;
+  background-color: red;
+  transition: all .5s;
+  overflow: hidden;
+  /* pointer-events: none; */
+}
+
+.box{
+  width: 100%;
+  height: 50%;
+  background-color: black;
+}
+
+.items{
+  list-style: none;
+  width: 100%;
+  background-color: lightgreen;
+  padding: 10px 5px;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  padding-left: 25px;
+  gap: 25px;
 }
