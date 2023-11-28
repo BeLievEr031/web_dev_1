@@ -4,6 +4,10 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: ZT Ravigsfen;
+  /* font-family: velvetta; */
+  /* font-family: montserrat; */
+  /* font-family: Balfhy Glibs; */
 }
 
 body {
@@ -28,6 +32,7 @@ nav img {
 .container {
   height: calc(100vh - 48px);
   position: relative;
+  display: flex;
 }
 
 .menu {
@@ -64,25 +69,24 @@ nav img {
   background-color: inherit;
 }
 
-aside{
+aside {
   width: 40vh;
   height: 100%;
-  background-color: red;
-  transition: all .5s;
+  transition: all 0.5s;
   overflow: hidden;
+  padding-top: 10px;
   /* pointer-events: none; */
 }
 
-.box{
+.box {
   width: 100%;
   height: 50%;
   background-color: black;
 }
 
-.items{
+.items {
   list-style: none;
   width: 100%;
-  background-color: lightgreen;
   padding: 10px 5px;
   margin-top: 1px;
   display: flex;
@@ -90,4 +94,46 @@ aside{
   font-size: 25px;
   padding-left: 25px;
   gap: 25px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.active-item {
+  background-color: #feefc3;
+}
+
+.items:hover {
+  background-color: #f1f3f4;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.task-add-inp {
+  margin-left: 20vw;
+  width: 30vw;
+  border: 5px solid red;
+  overflow: hidden;
+  height: 50px;
+  transition: all 1s;
+}
+
+.add-task {
+  width: 100%;
+  height: 50px;
+  font-size: 17px;
+  border-radius: 10px;
+  padding: 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  outline: none;
+  border: none;
+}
+
+.expandable{
+  border: 2px solid red;
 }
