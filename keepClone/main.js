@@ -43,6 +43,10 @@ taskTakerInp.addEventListener("focus", function () {
     document.querySelector(".task-add-inp").style.height = "100px"
 })
 
+
+// Agar input box ke bahar clcik hua to band karana he else agar kisi bhi same input
+// ke element per click hua to band nahi karana he
+
 document.addEventListener("click",function(e){
     console.log(e.target);
 })
