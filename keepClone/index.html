@@ -35,29 +35,44 @@
         <aside>
           <ul class="side-items">
             <li class="items active-item">
-              <span class="material-symbols-outlined sidebar-icon-data"> lightbulb </span>
+              <span class="material-symbols-outlined sidebar-icon-data">
+                lightbulb
+              </span>
               <span>Notes</span>
             </li>
             <li class="items">
-              <span class="material-symbols-outlined sidebar-icon-data"> notifications </span>
+              <span class="material-symbols-outlined sidebar-icon-data">
+                notifications
+              </span>
               <span>Notes</span>
             </li>
             <li class="items">
-              <span class="material-symbols-outlined sidebar-icon-data"> edit </span>
+              <span class="material-symbols-outlined sidebar-icon-data">
+                edit
+              </span>
               <span>Notes</span>
             </li>
             <li class="items">
-              <span class="material-symbols-outlined sidebar-icon-data"> archive </span>
+              <span class="material-symbols-outlined sidebar-icon-data">
+                archive
+              </span>
               <span>Notes</span>
             </li>
           </ul>
         </aside>
 
         <div class="main">
-          <div class="task-add-inp">
-            <input type="text" class="add-task" placeholder="Take a Note">
-            <div class="expandable">
-              djdj
+          <div class="task-add-inp __open__">
+            <input type="text" class="add-title __open__" placeholder="Take a note..." />
+            <div class="expandable __open__">
+              <input type="text" id="task-inp" placeholder="Enter task" class="__open__"/>
+              <div class="action-btn-cont action-btn __open__">
+                <span class="material-symbols-outlined __open__"> palette </span>
+                <span class="material-symbols-outlined __open__"> image </span>
+                <span class="material-symbols-outlined __open__"> archive </span>
+                <span class="material-symbols-outlined __open__"> more_vert </span>
+                <button id="close-btn">close</button>
+              </div>
             </div>
           </div>
         </div>
