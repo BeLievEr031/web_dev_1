@@ -7,7 +7,7 @@ const taskBoxCont = document.querySelector(".task-box-cont")
 const bgChangerBtn = document.querySelector("#bg-changer-btn")
 const bgColorCont = document.querySelector(".bg-color-cont")
 let asideToggle = false;
-
+let selectedColor = "#FFF"
 
 // 🔥🔥🔥 Replace the logo according to the active sidebar link.
 
@@ -34,6 +34,7 @@ document.addEventListener("click", function (e) {
     if (!classList.includes("__open__")) {
         taskAddCont.style.height = "50px"
         titleTakerInp.placeholder = "Take a note...";
+        taskAddCont.style.backgroundColor = "#fff"
 
         if (titleTakerInp.value.trim() !== "" || taskTakerInp.value.trim() !== "") {
             handleCreationOfNewTask();
@@ -42,6 +43,8 @@ document.addEventListener("click", function (e) {
         // Reseting the values
         taskTakerInp.value = ""
         titleTakerInp.value = ""
+        selectedColor = "#FFF"
+        bgColorCont.style.display = "none"
     }
 })
 
@@ -53,7 +56,7 @@ function handleCreationOfNewTask() {
         task: taskTakerInp.value,
         bin: false,
         isArchived: false,
-        bgColor: "#fff",
+        bgColor: selectedColor,
     }
 
 
@@ -67,6 +70,7 @@ function handleCreationOfNewTask() {
 function constructHTMLForTask(taskObj) {
     const taskDiv = document.createElement("div")
     taskDiv.classList.add("task")
+    taskDiv.style.backgroundColor = taskObj.bgColor
 
     const taskDataDiv = document.createElement("div")
     taskDataDiv.classList.add("task-data")
@@ -97,15 +101,50 @@ function constructHTMLForTask(taskObj) {
 
 
 bgChangerBtn.addEventListener("click", function (e) {
-    console.log(e.x);
-    console.log(e.y);
-
-    bgColorCont.style.left = e.x+ "px"
-    bgColorCont.style.top = e.y+25 + "px"
+    bgColorCont.style.left = e.x + "px"
+    bgColorCont.style.top = e.y + 25 + "px"
+    bgColorCont.style.display = "block"
 })
 
 const color = document.querySelector(".color")
 
-color.addEventListener("click",function(){
-    taskAddCont.style.backgroundColor = "red"
+
+constructHTMLForBgColor()
+
+
+function constructHTMLForBgColor() {
+
+    const colorArr = [
+        '#8a2be2',
+        '#4b0082',
+        '#0000ff',
+        '#008000',
+        '#ffff00',
+        '#ffa500',
+        '#ff0000',
+        "#EFEFF1",
+        "#E9E3D4",
+        "#F6E2DD",
+    ];
+
+    for (let i = 0; i < colorArr.length; i++) {
+        const span = document.createElement("span")
+        span.classList.add("color")
+        span.classList.add("__open__")
+        span.style.backgroundColor = colorArr[i]
+        span.color = colorArr[i]
+
+        span.addEventListener("click", function (e) {
+            taskAddCont.style.backgroundColor = span.color;
+            selectedColor = span.color;
+        })
+
+        bgColorCont.querySelector("div").appendChild(span)
+    }
+}
+
+document.querySelector("#reset-color").addEventListener("click",function(){
+    taskAddCont.style.backgroundColor = "#FFF"
+    selectedColor = "#FFF"
 })
+
