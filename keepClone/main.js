@@ -4,11 +4,50 @@ const titleTakerInp = document.querySelector(".add-title")
 const taskAddCont = document.querySelector(".task-add-inp");
 const taskTakerInp = document.querySelector("#task-inp")
 const taskBoxCont = document.querySelector(".task-box-cont")
+const archiveBoxCont = document.querySelector(".archive-task-cont")
 const bgChangerBtn = document.querySelector("#bg-changer-btn")
 const bgColorCont = document.querySelector(".bg-color-cont")
+let activeItem = document.querySelector(".active-item")
+const sideNavLinks = document.querySelectorAll(".items")
 // const asideArchive = document.querySelector("#aside-archive")
 let asideToggle = false;
 let selectedColor = "#FFF"
+const taskArr = [];
+
+// SideBar navigation logic
+let isArchivedClick = false;
+
+sideNavLinks.forEach(function (elem) {
+    elem.addEventListener("click", function () {
+        activeItem.classList.remove("active-item")
+        activeItem = elem;
+        activeItem.classList.add("active-item")
+
+        if (elem.id === "archive") {
+            taskAddCont.style.display = "none"
+            taskBoxCont.style.display = "none"
+            archiveBoxCont.style.display = "flex"
+            const archiveTask = taskArr.filter((elem) => elem.isArchived === true)
+            console.log(archiveTask);
+
+            isArchivedClick === false && archiveTask.forEach(function (archiveTask) {
+                archiveBoxCont.appendChild(constructHTMLForTask(archiveTask))
+            })
+
+            // if (isArchivedClick === false) {
+            //     archiveTask.forEach(function (archiveTask) {
+            //         archiveBoxCont.appendChild(constructHTMLForTask(archiveTask))
+            //     })
+            // }
+
+            isArchivedClick = true;
+        } else if (elem.id === "notes") {
+            taskAddCont.style.display = "block"
+            taskBoxCont.style.display = "flex"
+            archiveBoxCont.style.display = "none"
+        }
+    })
+})
 
 // 🔥🔥🔥 Replace the logo according to the active sidebar link.
 
@@ -49,7 +88,7 @@ document.addEventListener("click", function (e) {
     }
 })
 
-const taskArr = [];
+
 
 function handleCreationOfNewTask() {
     const taskObj = {
@@ -93,9 +132,11 @@ function constructHTMLForTask(taskObj) {
     taskDiv.appendChild(labelDiv)
 
     taskDiv.innerHTML += actionBtnHTML;
-    taskDiv.querySelector("#task-archive-btn").addEventListener("click",function(e){
+    taskDiv.querySelector("#task-archive-btn").addEventListener("click", function (e) {
         e.target.parentElement.parentElement.remove();
-        console.log(4848);
+        taskObj.isArchived = true;
+
+        console.log(taskArr);
     })
 
     return taskDiv;
@@ -133,6 +174,13 @@ function constructHTMLForBgColor() {
         "#F6E2DD",
     ];
 
+    const imgArr = [
+        "./public/ab_1.jpg",
+        "./public/ab_2.jpg",
+        "./public/ab_3.jpg",
+        "./public/ab_4.jpg",
+    ]
+
     for (let i = 0; i < colorArr.length; i++) {
         const span = document.createElement("span")
         span.classList.add("color")
@@ -147,12 +195,29 @@ function constructHTMLForBgColor() {
 
         bgColorCont.querySelector("div").appendChild(span)
     }
+
+    // for (let i = 0; i < imgArr.length; i++) {
+    //     const span = document.createElement("span")
+    //     span.classList.add("color")
+    //     span.classList.add("__open__")
+    //     span.style.background = `url(${imgArr[i]})`
+    //     span.bgImg = imgArr[i]
+
+    //     span.addEventListener("click", function (e) {
+    //         taskAddCont.style.background = `url(${imgArr[i]})`;
+    //         // selectedColor = span.color;
+    //     })
+
+    //     bgColorCont.querySelector("#bg-img-cont").appendChild(span)
+    // }
 }
 
 document.querySelector("#reset-color").addEventListener("click", function () {
     taskAddCont.style.backgroundColor = "#FFF"
     selectedColor = "#FFF"
 })
+
+
 
 // asideArchive.addEventListener("click", function () {
 //     taskAddCont.style.display = "none"
