@@ -16,7 +16,6 @@ const taskArr = [];
 
 // SideBar navigation logic
 let isArchivedClick = false;
-
 sideNavLinks.forEach(function (elem) {
     elem.addEventListener("click", function () {
         activeItem.classList.remove("active-item")
