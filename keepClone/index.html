@@ -34,31 +34,31 @@
       <div class="container">
         <aside>
           <ul class="side-items">
-            <li class="items active-item">
+            <li class="items active-item" id="notes">
               <span class="material-symbols-outlined sidebar-icon-data">
                 lightbulb
               </span>
               <span>Notes</span>
             </li>
-            <li class="items">
+            <li class="items" id="remainder">
               <span class="material-symbols-outlined sidebar-icon-data">
                 notifications
               </span>
               <span>Remainder</span>
             </li>
-            <li class="items">
+            <li class="items" id="edit">
               <span class="material-symbols-outlined sidebar-icon-data">
                 edit
               </span>
               <span>Edit label</span>
             </li>
-            <li class="items">
+            <li class="items" id="archive">
               <span class="material-symbols-outlined sidebar-icon-data">
                 archive
               </span>
               <span>Archive</span>
             </li>
-            <li class="items">
+            <li class="items" id="delete">
               <span class="material-symbols-outlined sidebar-icon-data">
                 delete
               </span>
@@ -101,6 +101,7 @@
           </div>
 
           <div class="task-box-cont">
+            <!-- <img src="./public/ab_1.jpg" alt=""> -->
             <!-- <div class="task">
               <div class="task-data">Task1</div>
               <div class="label-cont">
@@ -121,14 +122,68 @@
             </div> -->
           </div>
 
+          <div class="archive-task-cont">
+            <!-- <div class="task">
+              <div class="task-data">Task1</div>
+              <div class="label-cont">
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+              </div>
+              <div class="action-btn-cont action-btn">
+                <span class="material-symbols-outlined"> palette </span>
+                <span class="material-symbols-outlined"> image </span>
+                <span class="material-symbols-outlined"> archive </span>
+                <span class="material-symbols-outlined more_vert">
+                  more_vert
+                </span>
+              </div>
+            </div>
+
+            <div class="task">
+              <div class="task-data">Task1</div>
+              <div class="label-cont">
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+                <span class="label">label1</span>
+              </div>
+              <div class="action-btn-cont action-btn">
+                <span class="material-symbols-outlined"> palette </span>
+                <span class="material-symbols-outlined"> image </span>
+                <span class="material-symbols-outlined"> archive </span>
+                <span class="material-symbols-outlined more_vert">
+                  more_vert
+                </span>
+              </div>
+            </div> -->
+          </div>
         </div>
       </div>
     </div>
     <script type="module" src="/main.js"></script>
 
     <div class="bg-color-cont __open__">
-      <div style="display: flex;align-items: center;" class="__open__">
-        <span class="material-symbols-outlined color __open__" id="reset-color"> format_color_reset </span>
+      <div style="display: flex; align-items: center" class="__open__">
+        <span class="material-symbols-outlined color __open__" id="reset-color">
+          format_color_reset
+        </span>
+      </div>
+      <div
+        style="display: flex; align-items: center"
+        class="__open__"
+        id="bg-img-cont"
+      >
+        <span class="material-symbols-outlined color __open__" id="reset-color">
+          format_color_reset
+        </span>
       </div>
     </div>
   </body>
