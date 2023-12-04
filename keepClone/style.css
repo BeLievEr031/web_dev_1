@@ -109,6 +109,10 @@ aside {
   background-color: #f1f3f4;
 }
 
+.active-item:hover {
+  background-color: #feefc3;
+}
+
 .main {
   width: 100%;
   height: 100%;
@@ -125,6 +129,9 @@ aside {
   transition: all 1s;
   border-radius: 10px;
   position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
 
 .task-add-inp input {
@@ -176,7 +183,7 @@ aside {
 
 .bg-color-cont {
   border: 1px solid black;
-  position: absolute; 
+  position: absolute;
   display: block;
   z-index: 999999;
   /* height: 40px; */
@@ -186,19 +193,17 @@ aside {
   border-radius: 10px;
 }
 
-.bg-color-cont div{
+.bg-color-cont div {
   height: 100%;
   padding: 10px 8px;
 }
 
-#reset-color{
+#reset-color {
   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-
 
 .color {
   width: 30px;
@@ -212,6 +217,15 @@ aside {
 .task-box-cont {
   display: flex;
   margin-top: 50px;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.archive-task-cont {
+  display: none;
+  margin-top: 15px;
+  margin-left: 20pxb;
   gap: 10px;
   flex-wrap: wrap;
   align-items: flex-start;
