@@ -5,6 +5,7 @@ const taskAddCont = document.querySelector(".task-add-inp");
 const taskTakerInp = document.querySelector("#task-inp")
 const taskBoxCont = document.querySelector(".task-box-cont")
 const archiveBoxCont = document.querySelector(".archive-task-cont")
+const deleteBoxCont = document.querySelector(".delete-task-cont")
 const bgChangerBtn = document.querySelector("#bg-changer-btn")
 const bgColorCont = document.querySelector(".bg-color-cont")
 let activeItem = document.querySelector(".active-item")
@@ -16,6 +17,7 @@ const taskArr = [];
 
 // SideBar navigation logic
 let isArchivedClick = false;
+let isBinClick = false;
 sideNavLinks.forEach(function (elem) {
     elem.addEventListener("click", function () {
         activeItem.classList.remove("active-item")
@@ -26,24 +28,41 @@ sideNavLinks.forEach(function (elem) {
             taskAddCont.style.display = "none"
             taskBoxCont.style.display = "none"
             archiveBoxCont.style.display = "flex"
-            const archiveTask = taskArr.filter((elem) => elem.isArchived === true)
-            console.log(archiveTask);
+            const archiveTask = taskArr.filter((elem) => elem.isArchived === true && elem.bin === false)
 
+            deleteBoxCont.innerHTML = "";
             isArchivedClick === false && archiveTask.forEach(function (archiveTask) {
                 archiveBoxCont.appendChild(constructHTMLForTask(archiveTask))
             })
 
-            // if (isArchivedClick === false) {
-            //     archiveTask.forEach(function (archiveTask) {
-            //         archiveBoxCont.appendChild(constructHTMLForTask(archiveTask))
-            //     })
-            // }
-
             isArchivedClick = true;
+            isBinClick = false;
+        } else if (elem.id === "delete") {
+            taskAddCont.style.display = "none"
+            taskBoxCont.style.display = "none"
+            archiveBoxCont.style.display = "none"
+            deleteBoxCont.style.display = "flex"
+
+            const deleteTaskArr = taskArr.filter((elem) => elem.bin === true)
+
+            archiveBoxCont.innerHTML = "";
+            isBinClick === false && deleteTaskArr.forEach(function (deleteTask) {
+                deleteBoxCont.appendChild(constructHTMLForTask(deleteTask,true))
+            })
+
+            isArchivedClick = false;
+            isBinClick = true;
         } else if (elem.id === "notes") {
             taskAddCont.style.display = "block"
             taskBoxCont.style.display = "flex"
             archiveBoxCont.style.display = "none"
+
+            archiveBoxCont.innerHTML = "";
+            deleteBoxCont.innerHTML = "";
+
+            isArchivedClick = false;
+            isBinClick = false
+
         }
     })
 })
@@ -106,7 +125,7 @@ function handleCreationOfNewTask() {
     console.log(taskArr);
 }
 
-function constructHTMLForTask(taskObj) {
+function constructHTMLForTask(taskObj,isBin=false) {
     const taskDiv = document.createElement("div")
     taskDiv.classList.add("task")
     taskDiv.style.backgroundColor = taskObj.bgColor
@@ -122,7 +141,8 @@ function constructHTMLForTask(taskObj) {
     <div class="action-btn-cont action-btn">
         <span class="material-symbols-outlined"> palette </span>
         <span class="material-symbols-outlined"> image </span>
-        <span class="material-symbols-outlined" id="task-archive-btn"> archive </span>
+        ${!isBin ? '<span class="material-symbols-outlined" id="task-archive-btn"> archive </span>':""}
+        <span class="material-symbols-outlined" id="delete-btn"> delete </span>
         <span class="material-symbols-outlined more_vert"> more_vert </span>
     </div>
     `
@@ -131,11 +151,14 @@ function constructHTMLForTask(taskObj) {
     taskDiv.appendChild(labelDiv)
 
     taskDiv.innerHTML += actionBtnHTML;
-    taskDiv.querySelector("#task-archive-btn").addEventListener("click", function (e) {
+    !isBin && taskDiv.querySelector("#task-archive-btn").addEventListener("click", function (e) {
         e.target.parentElement.parentElement.remove();
         taskObj.isArchived = true;
+    })
 
-        console.log(taskArr);
+    taskDiv.querySelector("#delete-btn").addEventListener("click", function (e) {
+        e.target.parentElement.parentElement.remove();
+        taskObj.bin = true;
     })
 
     return taskDiv;

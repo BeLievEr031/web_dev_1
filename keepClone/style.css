@@ -222,7 +222,7 @@ aside {
   align-items: flex-start;
 }
 
-.archive-task-cont {
+.archive-task-cont, .delete-task-cont {
   display: none;
   margin-top: 15px;
   margin-left: 20pxb;
@@ -247,6 +247,8 @@ aside {
 
 .task-data {
   margin-top: 10px;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .label-cont {
