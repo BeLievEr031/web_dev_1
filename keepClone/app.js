@@ -19,6 +19,8 @@ client
     .setProject('65744bc35ca7360e44fa');
 
 
+export { client }
+
 const databases = new Databases(client);
 let asideToggle = false;
 let selectedColor = "#FFF"
@@ -103,20 +105,23 @@ document.addEventListener("click", function (e) {
         let taskObj;
         if (titleTakerInp.value.trim() !== "" || taskTakerInp.value.trim() !== "") {
             taskObj = handleCreationOfNewTask();
+
+            const promise = databases.createDocument(
+                '65744c3abb87515f3181',
+                '65744c6fb2a3ccdcc2b7',
+                ID.unique(),
+                taskObj
+            );
+
+            promise.then(function (response) {
+                console.log(response);
+            }, function (error) {
+                console.log(error);
+            });
+
         }
 
-        const promise = databases.createDocument(
-            '65744c3abb87515f3181',
-            '65744c6fb2a3ccdcc2b7',
-            ID.unique(),
-            taskObj
-        );
 
-        promise.then(function (response) {
-            console.log(response);
-        }, function (error) {
-            console.log(error);
-        });
 
         // Reseting the values
         taskTakerInp.value = ""
@@ -239,6 +244,8 @@ async function fetchTaskaFromDB() {
             '65744c3abb87515f3181',
             '65744c6fb2a3ccdcc2b7',
             [
+
+                Query.select(["isArchived",true]),
                 Query.limit(25),
                 Query.offset(0)
             ]
