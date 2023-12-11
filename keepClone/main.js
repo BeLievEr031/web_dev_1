@@ -10,6 +10,8 @@ const bgChangerBtn = document.querySelector("#bg-changer-btn")
 const bgColorCont = document.querySelector(".bg-color-cont")
 let activeItem = document.querySelector(".active-item")
 const sideNavLinks = document.querySelectorAll(".items")
+
+import { Client, Databases, Query, ID } from "appwrite";
 // const asideArchive = document.querySelector("#aside-archive")
 let asideToggle = false;
 let selectedColor = "#FFF"
@@ -47,7 +49,7 @@ sideNavLinks.forEach(function (elem) {
 
             archiveBoxCont.innerHTML = "";
             isBinClick === false && deleteTaskArr.forEach(function (deleteTask) {
-                deleteBoxCont.appendChild(constructHTMLForTask(deleteTask,true))
+                deleteBoxCont.appendChild(constructHTMLForTask(deleteTask, true))
             })
 
             isArchivedClick = false;
@@ -66,6 +68,16 @@ sideNavLinks.forEach(function (elem) {
         }
     })
 })
+
+
+const client = new Client();
+
+client
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('65744bc35ca7360e44fa');
+
+
+const databases = new Databases(client);
 
 // 🔥🔥🔥 Replace the logo according to the active sidebar link.
 
@@ -93,10 +105,23 @@ document.addEventListener("click", function (e) {
         taskAddCont.style.height = "50px"
         titleTakerInp.placeholder = "Take a note...";
         taskAddCont.style.backgroundColor = "#fff"
-
+        let taskObj;
         if (titleTakerInp.value.trim() !== "" || taskTakerInp.value.trim() !== "") {
-            handleCreationOfNewTask();
+            taskObj = handleCreationOfNewTask();
         }
+
+        const promise = databases.createDocument(
+            '65744c3abb87515f3181',
+            '65744c6fb2a3ccdcc2b7',
+            ID.unique(),
+            taskObj
+        );
+
+        promise.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
 
         // Reseting the values
         taskTakerInp.value = ""
@@ -123,9 +148,11 @@ function handleCreationOfNewTask() {
 
     taskArr.push(taskObj)
     console.log(taskArr);
+
+    return taskObj;
 }
 
-function constructHTMLForTask(taskObj,isBin=false) {
+function constructHTMLForTask(taskObj, isBin = false) {
     const taskDiv = document.createElement("div")
     taskDiv.classList.add("task")
     taskDiv.style.backgroundColor = taskObj.bgColor
@@ -141,7 +168,7 @@ function constructHTMLForTask(taskObj,isBin=false) {
     <div class="action-btn-cont action-btn">
         <span class="material-symbols-outlined"> palette </span>
         <span class="material-symbols-outlined"> image </span>
-        ${!isBin ? '<span class="material-symbols-outlined" id="task-archive-btn"> archive </span>':""}
+        ${!isBin ? '<span class="material-symbols-outlined" id="task-archive-btn"> archive </span>' : ""}
         <span class="material-symbols-outlined" id="delete-btn"> delete </span>
         <span class="material-symbols-outlined more_vert"> more_vert </span>
     </div>
