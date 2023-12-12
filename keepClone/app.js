@@ -138,6 +138,7 @@ function handleCreationOfNewTask() {
         bin: false,
         isArchived: false,
         bgColor: selectedColor,
+        userid:JSON.parse(window.localStorage.getItem("user")).$id
     }
 
     const task = constructHTMLForTask(taskObj)
@@ -245,7 +246,7 @@ async function fetchTaskaFromDB() {
             '65744c6fb2a3ccdcc2b7',
             [
 
-                Query.select(["isArchived",true]),
+                Query.equal("userid",[JSON.parse(window.localStorage.getItem("user")).$id+""]),
                 Query.limit(25),
                 Query.offset(0)
             ]
