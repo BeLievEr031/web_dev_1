@@ -138,7 +138,7 @@ function handleCreationOfNewTask() {
         bin: false,
         isArchived: false,
         bgColor: selectedColor,
-        userid:JSON.parse(window.localStorage.getItem("user")).$id
+        userid: JSON.parse(window.localStorage.getItem("user")).$id
     }
 
     const task = constructHTMLForTask(taskObj)
@@ -165,7 +165,7 @@ function constructHTMLForTask(taskObj, isBin = false) {
         <span class="material-symbols-outlined"> palette </span>
         <span class="material-symbols-outlined"> image </span>
         ${!isBin ? '<span class="material-symbols-outlined" id="task-archive-btn"> archive </span>' : ""}
-        <span class="material-symbols-outlined" id="delete-btn"> delete </span>
+        <span class="material-symbols-outlined" id="delete-btn" task_id=${taskObj.$id}> delete </span>
         <span class="material-symbols-outlined more_vert"> more_vert </span>
     </div>
     `
@@ -180,8 +180,24 @@ function constructHTMLForTask(taskObj, isBin = false) {
     })
 
     taskDiv.querySelector("#delete-btn").addEventListener("click", function (e) {
-        e.target.parentElement.parentElement.remove();
-        taskObj.bin = true;
+
+
+        console.log(e.target.attributes[2].value);
+
+        const DOCUMENT_ID = e.target.attributes[2].value
+        const promise = databases.deleteDocument(
+            '65744c3abb87515f3181',
+            '65744c6fb2a3ccdcc2b7',
+            DOCUMENT_ID);
+
+        promise.then(function (response) {
+            console.log(response); // Success
+            console.log("Badhai ho delete hua he !!!");
+            e.target.parentElement.parentElement.remove();
+            // taskObj.bin = true;
+        }, function (error) {
+            console.log(error); // Failure
+        });
     })
 
     return taskDiv;
@@ -246,15 +262,16 @@ async function fetchTaskaFromDB() {
             '65744c6fb2a3ccdcc2b7',
             [
 
-                Query.equal("userid",[JSON.parse(window.localStorage.getItem("user")).$id+""]),
+                Query.equal("userid", [JSON.parse(window.localStorage.getItem("user")).$id + ""]),
                 Query.limit(25),
                 Query.offset(0)
             ]
         );
 
         console.log(tasksArr);
-        tasksArr.documents.forEach(function (deleteTask) {
-            taskBoxCont.appendChild(constructHTMLForTask(deleteTask, true))
+        tasksArr.documents.forEach(function (task) {
+            console.log(task);
+            taskBoxCont.appendChild(constructHTMLForTask(task))
         })
 
     } catch (error) {
@@ -263,3 +280,12 @@ async function fetchTaskaFromDB() {
 }
 
 fetchTaskaFromDB();
+
+
+
+const logoutBtn = document.querySelector("#logout")
+
+logoutBtn.addEventListener("click", function () {
+    window.localStorage.removeItem("user")
+    window.location.replace("./login")
+})
