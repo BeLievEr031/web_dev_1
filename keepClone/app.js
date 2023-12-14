@@ -38,21 +38,42 @@ sideNavLinks.forEach(function (elem) {
         if (elem.id === "archive") {
             taskAddCont.style.display = "none"
             taskBoxCont.style.display = "none"
-            archiveBoxCont.style.display = "flex"
-            const archiveTask = taskArr.filter((elem) => elem.isArchived === true && elem.bin === false)
+            archiveBoxCont.style.display = "block"
+            // const archiveTask = taskArr.filter((elem) => elem.isArchived === true && elem.bin === false)
 
-            deleteBoxCont.innerHTML = "";
-            isArchivedClick === false && archiveTask.forEach(function (archiveTask) {
-                archiveBoxCont.appendChild(constructHTMLForTask(archiveTask))
-            })
+            if (isArchivedClick == false) {
+                const promise = databases.listDocuments(
+                    '65744c3abb87515f3181',
+                    '65744c6fb2a3ccdcc2b7',
+                    [
 
-            isArchivedClick = true;
-            isBinClick = false;
+                        Query.equal("userid", [JSON.parse(window.localStorage.getItem("user")).$id + ""]),
+                        Query.equal("isArchived", [true]),
+                        Query.limit(25),
+                        Query.offset(0)
+                    ]
+                );
+
+                promise.then(function (response) {
+                    console.log(response);
+                    deleteBoxCont.innerHTML = "";
+                    response.documents.forEach(function (archiveTask) {
+                        archiveBoxCont.appendChild(constructHTMLForTask(archiveTask))
+                    })
+
+                    isArchivedClick = true;
+                    isBinClick = false;
+                }, function (error) {
+                    console.log(error);
+                });
+
+            }
+
         } else if (elem.id === "delete") {
             taskAddCont.style.display = "none"
             taskBoxCont.style.display = "none"
             archiveBoxCont.style.display = "none"
-            deleteBoxCont.style.display = "flex"
+            deleteBoxCont.style.display = "block"
 
             const deleteTaskArr = taskArr.filter((elem) => elem.bin === true)
 
@@ -65,7 +86,7 @@ sideNavLinks.forEach(function (elem) {
             isBinClick = true;
         } else if (elem.id === "notes") {
             taskAddCont.style.display = "block"
-            taskBoxCont.style.display = "flex"
+            taskBoxCont.style.display = "block"
             archiveBoxCont.style.display = "none"
 
             archiveBoxCont.innerHTML = "";
@@ -164,7 +185,7 @@ function constructHTMLForTask(taskObj, isBin = false) {
     <div class="action-btn-cont action-btn">
         <span class="material-symbols-outlined"> palette </span>
         <span class="material-symbols-outlined"> image </span>
-        ${!isBin ? '<span class="material-symbols-outlined" id="task-archive-btn"> archive </span>' : ""}
+        ${!isBin ? `<span class="material-symbols-outlined" id="task-archive-btn" task_id=${taskObj.$id}> archive </span>` : ""}
         <span class="material-symbols-outlined" id="delete-btn" task_id=${taskObj.$id}> delete </span>
         <span class="material-symbols-outlined more_vert"> more_vert </span>
     </div>
@@ -175,8 +196,25 @@ function constructHTMLForTask(taskObj, isBin = false) {
 
     taskDiv.innerHTML += actionBtnHTML;
     !isBin && taskDiv.querySelector("#task-archive-btn").addEventListener("click", function (e) {
-        e.target.parentElement.parentElement.remove();
-        taskObj.isArchived = true;
+        const DOCUMENT_ID = e.target.attributes[2].value
+        const promise = databases.updateDocument(
+            '65744c3abb87515f3181',
+            '65744c6fb2a3ccdcc2b7',
+            DOCUMENT_ID,
+            {
+                isArchived: true
+            }
+        );
+
+        promise.then(function (response) {
+            console.log(response); // Success
+            e.target.parentElement.parentElement.remove();
+            taskObj.isArchived = true;
+
+
+        }, function (error) {
+            console.log(error); // Failure
+        });
     })
 
     taskDiv.querySelector("#delete-btn").addEventListener("click", function (e) {
@@ -263,6 +301,7 @@ async function fetchTaskaFromDB() {
             [
 
                 Query.equal("userid", [JSON.parse(window.localStorage.getItem("user")).$id + ""]),
+                Query.equal("isArchived", [false]),
                 Query.limit(25),
                 Query.offset(0)
             ]
