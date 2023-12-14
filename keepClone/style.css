@@ -215,14 +215,18 @@ aside {
 }
 
 .task-box-cont {
-  display: flex;
+  /* display: flex; */
   margin-top: 50px;
-  gap: 10px;
+  /* gap: 10px;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: flex-start; */
+
+  columns: 4;
+  /* column-gap:0px; */
 }
 
-.archive-task-cont, .delete-task-cont {
+.archive-task-cont,
+.delete-task-cont {
   display: none;
   margin-top: 15px;
   margin-left: 20pxb;
@@ -237,6 +241,8 @@ aside {
   width: 18vw;
   border-radius: 5px;
   transition: all 0.5s;
+  break-inside: avoid;
+  margin-top: 15px;
 }
 
 .task:hover {
@@ -280,4 +286,11 @@ aside {
 
 .more_vert {
   margin-left: auto;
+}
+
+#logout {
+  margin-left: auto;
+  padding: 5px 15px;
+  font-size: 25px;
+  cursor: pointer;
 }
