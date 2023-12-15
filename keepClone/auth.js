@@ -1,5 +1,4 @@
 import { Client, Account, ID } from "appwrite";
-// import { client } from "./app";
 
 let isUser = window.localStorage.getItem("user")
 let user = JSON.parse(isUser)
