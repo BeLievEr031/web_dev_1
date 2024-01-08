@@ -141,9 +141,6 @@ document.addEventListener("click", function (e) {
             });
 
         }
-
-
-
         // Reseting the values
         taskTakerInp.value = ""
         titleTakerInp.value = ""
